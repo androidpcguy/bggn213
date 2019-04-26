@@ -1,12 +1,15 @@
-# Lecture 6 Homework
+---
+author: "Akshara Balachandra (A11933675)"
+date: "04/25/19"
+title: "Lecture 6 Homework"
+---
 
 ## Original Code
 
 The original code (with corrections) looked like this.
 
-```{r}
+```{r, eval = F}
 # Can you improve this analysis code?
-library(bio3d)
 
 s1 <- read.pdb("4AKE") # kinase with drug
 s2 <- read.pdb("1AKE") # kinase no drug
@@ -28,7 +31,7 @@ plotb3(s3.b, sse=s3.chainA, typ="l", ylab="Bfactor")
 We can see that there is a lot of repeated code that can be refactored into a reusable function.
 The basic structure of the function is shown below.
 
-```{r}
+```{r, eval = F}
 s1 <- read.pdb("4AKE") # kinase with drug
 
 s1.chainA <- trim.pdb(s1, chain="A", elety="CA")
@@ -45,12 +48,18 @@ and published by Google (found
 [here](https://google.github.io/styleguide/Rguide.xml)).
 
 ```{r}
+require(bio3d)
+
 analyze.prot <- function(prot.name, chain = 'A') {
 	# Analyze protein-drug interactions using data from the PDB Database.
 	#
 	# Args:
-	#   	prot.name: The 4-length identifier for the protein to be analyzed
+	# 	prot.name: The 4-length identifier for the protein to be analyzed
 	# 	chain: The chain with which drug interactions should be analyzed.
+	#
+	# Examples (not real protein IDs):
+	#	analyze.prot('3MDS')
+	#	analyze.prot('7JLE', chain = 'B')
 	#
 	# Returns:
 	# 	NONE
