@@ -1,3 +1,0 @@
-"0","both.na <- function(vec1, vec2) {"
-"0","  sum(is.na(vec1) & is.na(vec2))"
-"0","}"

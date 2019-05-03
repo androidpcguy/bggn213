@@ -1,3 +1,9 @@
+#'---
+#'title: 'Class05: R Graphics'
+#'author: "Akshara Balachandra"
+#'date: "05/03/19"
+#'output: github_document
+#'---
 # master R file
 
 source("class05.R")
