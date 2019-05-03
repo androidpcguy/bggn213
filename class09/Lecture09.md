@@ -2,7 +2,7 @@
 author: Akshara Balachandra
 title: Class 09 Unsupervised Learning
 date: 05/01/19
-output: github_document
+output: rmarkdown::github_document
 ---
 
 ## Unsupervised learning analysis of breast cancer cells

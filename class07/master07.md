@@ -2,7 +2,7 @@
 title: "Class 07: R functions and packages"
 author: "Akshara Balachandra"
 date: "April 24, 2019"
-output: github_document
+output: rmarkdown::github_document
 ---
 
 ```{r setup, include=FALSE}

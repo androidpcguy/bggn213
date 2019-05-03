@@ -2,8 +2,7 @@
 title: 'Class 6: R Functions'
 author: "Akshara Balachandra"
 date: "April 19, 2019"
-output:
-  github_document: default
+output: rmarkdown::github_document
 ---
 
 ```{r setup, include=FALSE}

@@ -2,7 +2,7 @@
 author: Akshara Balachandra
 title: Class 08 Unsupervised Learning
 date: 04/26/19
-output: github_document
+output: rmarkdown::github_document
 ---
 
 ## KNN clustering examples
