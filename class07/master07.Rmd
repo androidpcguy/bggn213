@@ -2,7 +2,7 @@
 title: "Class 07: R functions and packages"
 author: "Akshara Balachandra"
 date: "April 24, 2019"
-output: html_document
+output: github_document
 ---
 
 ```{r setup, include=FALSE}
@@ -36,7 +36,7 @@ y <- c(NA,3,NA,3,4)
 ```
 
 ```{r}
-is.na(x) 
+is.na(x)
 is.na(y)
 ```
 

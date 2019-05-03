@@ -3,14 +3,14 @@ title: 'Class 6: R Functions'
 author: "Akshara Balachandra"
 date: "April 19, 2019"
 output:
-  html_document: default
+  github_document: default
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = T)
 ```
 
-## Overview 
+## Overview
 Today we'll be going over **R functions**, but will start off with some
 **file reading first**.
 
@@ -95,7 +95,7 @@ Another example extension...
 ```{r}
 rescale3 <- function(x, na.rm=TRUE, plot=FALSE) {
   rng <-range(x, na.rm=na.rm)
-  
+
   print("Hello")
   answer <- (x - rng[1]) / (rng[2] - rng[1])
   print("is it me you are looking for?")
