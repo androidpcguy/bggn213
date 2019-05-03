@@ -1,0 +1,7 @@
+"0","source('./bio3d_example.R')"
+"0","prot_interact('4AKE')"
+"1","  Note: Accessing on-line PDB file
+"
+"2","/tmp/RtmpIVZTlV/4AKE.pdb  exists. Skipping download"
+"1","NULL
+"

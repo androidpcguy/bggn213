@@ -1,0 +1,8 @@
+"0","prot_interact('1AKE')"
+"1","  Note: Accessing on-line PDB file
+"
+"2","/tmp/RtmpIVZTlV/1AKE.pdb  exists. Skipping download"
+"1","   PDB has ALT records, taking A only, rm.alt=TRUE
+"
+"1","NULL
+"

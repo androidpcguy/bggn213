@@ -1,0 +1,4 @@
+"0","rescale <- function(x) {"
+"0","  rng <- range(x)"
+"0","  (x - rng[1]) / (rng[2] - rng[1])"
+"0","}"

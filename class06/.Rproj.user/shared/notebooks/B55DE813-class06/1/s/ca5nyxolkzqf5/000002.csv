@@ -1,0 +1,4 @@
+"0","rescale2 <- function(x, na.rm = T) {"
+"0","  rng <- range(x, na.rm = na.rm)"
+"0","  (x - rng[1]) / (rng[2] - rng[1])"
+"0","}"

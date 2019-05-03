@@ -1,0 +1,184 @@
+---
+title: "Class 07: R functions and packages"
+author: "Akshara Balachandra"
+date: "April 24, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## More on function writing
+
+First we will revisit our function from last day
+
+```{r}
+source('http://tinyurl.com/rescale-R')
+```
+
+```{r}
+x <- c(1:10, 'foobar')
+is.numeric(x)
+
+#rescale2(x)
+
+```
+
+## Function practice
+
+Write a function to identify NA elements in two vectors
+
+Simple example where I know what the answer should be
+```{r}
+x <- c(1,2,NA, 3, NA)
+y <- c(NA,3,NA,3,4)
+```
+
+```{r}
+is.na(x) 
+is.na(y)
+```
+
+```{r}
+both.na <- is.na(x) & is.na(y) # this gives true when both are NA
+which(both.na) # index of true
+print(paste('There are', sum(both.na), 'instances when both vectors are NA'))
+```
+
+
+This is my working snippet of code!
+
+```{r}
+both.na <- function(vec1, vec2) {
+  sum(is.na(vec1) & is.na(vec2))
+}
+```
+
+```{r}
+both.na(x,y)
+```
+
+
+Stress testing now....
+
+```{r}
+both.na(rep(NA, 5), c(rep(NA, 4), 3))
+```
+
+```{r}
+both.na(rep(NA, 5), rep(NA,2))
+```
+
+Check that lengths of inputs are equal
+
+```{r}
+x <- rep(NA, 5)
+y <- rep(NA, 3)
+
+length(x) != length(y) # check if lengths NOT equal
+```
+
+
+Try both.na3() function with extra features
+
+```{r}
+x <- c(1,2,NA, 3, NA)
+y <- c(NA,3,NA,3,4)
+
+both_na3(x, y)
+```
+
+
+## Calculate grades
+
+```{r}
+source('grade.R')
+
+student1 <- c(rep(100, 7), 90)
+student2 <- c(100, NA, 90, 90, 90, 90, 97, 80)
+
+print('Student 1...')
+summary(grade(student1))
+
+print('Student 2...')
+summary(grade(student2)) # hooray, both work!
+```
+
+
+```{r}
+rows = function(x) lapply(seq_len(nrow(x)), function(i) lapply(x,"[",i))
+
+url <- "https://tinyurl.com/gradeinput"
+all.grades <- read.csv(url, row.names = 1)
+
+final.grades <- apply(all.grades, MARGIN = 1, FUN = grade)
+final.mean.grades <- apply(final.grades,2, mean)
+final.mean.grades
+```
+
+
+Find the best-performing students now...
+```{r}
+sort(final.mean.grades, decreasing = T)
+```
+
+
+
+
+Some gene stuff
+```{r}
+x <- df1$IDs
+y <- df2$IDs
+
+common.ids <- intersect(x, y)
+```
+
+```{r}
+y[y %in% x]
+```
+
+
+```{r}
+cbind(x[x %in% y],
+y[y %in% x])
+
+gene_intersect2(df1, df2)
+```
+
+
+
+```{r}
+merge(df1, df2, by='IDs')
+```
+
+
+
+
+```{r}
+runApp('shiny.R')
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
