@@ -1,0 +1,92 @@
+---
+author: "Akshara Balachandra (A11933675)"
+date: "04/25/19"
+title: "Lecture 6 Homework"
+---
+
+## Original Code
+
+The original code (with corrections) looked like this.
+
+```{r, eval = F}
+# Can you improve this analysis code?
+
+s1 <- read.pdb("4AKE") # kinase with drug
+s2 <- read.pdb("1AKE") # kinase no drug
+s3 <- read.pdb("1E4Y") # kinase with drug
+
+s1.chainA <- trim.pdb(s1, chain="A", elety="CA")
+s2.chainA <- trim.pdb(s2, chain="A", elety="CA")
+s3.chainA <- trim.pdb(s3, chain="A", elety="CA")
+
+s1.b <- s1.chainA$atom$b
+s2.b <- s2.chainA$atom$b
+s3.b <- s3.chainA$atom$b
+
+plotb3(s1.b, sse=s1.chainA, typ="l", ylab="Bfactor")
+plotb3(s2.b, sse=s2.chainA, typ="l", ylab="Bfactor")
+plotb3(s3.b, sse=s3.chainA, typ="l", ylab="Bfactor")
+```
+
+We can see that there is a lot of repeated code that can be refactored into a reusable function.
+The basic structure of the function is shown below.
+
+```{r, eval = F}
+s1 <- read.pdb("4AKE") # kinase with drug
+
+s1.chainA <- trim.pdb(s1, chain="A", elety="CA")
+
+s1.b <- s1.chainA$atom$b
+
+plotb3(s1.b, sse=s1.chainA, typ="l", ylab="Bfactor")
+```
+
+## Refactored Code (My solution)
+
+Here is the refactored function. I am following coding conventions adopted
+and published by Google (found
+[here](https://google.github.io/styleguide/Rguide.xml)).
+
+```{r}
+require(bio3d)
+
+analyze.prot <- function(prot.name, chain = 'A') {
+	# Analyze protein-drug interactions using data from the PDB Database.
+	#
+	# Args:
+	# 	prot.name: The 4-length identifier for the protein to be analyzed
+	# 	chain: The chain with which drug interactions should be analyzed.
+	#
+	# Examples (not real protein IDs):
+	#	analyze.prot('3MDS')
+	#	analyze.prot('7JLE', chain = 'B')
+	#
+	# Returns:
+	# 	NONE
+
+	ELEMENT.TYPE = 'CA' # trim alpha carbons
+
+	# read the protein object from the pdb database
+	pdb.obj <- read.pdb(prot.name)
+
+	# trim the object to contain only the specified chain and element type
+	prot.chain <- trim.pdb(pdb.obj, chain = chain, elety = ELEMENT.TYPE)
+
+	# grab the atom attribute from the chain and the 'b' attribute from
+	# the atom attribute
+	prot.b <- prot.chain$atom$b
+
+	# plot the 'b' attribute
+	plotb3(prot.b, sse = prot.chain, typ = 'l', ylab = 'BFactor')
+}
+```
+
+## Running Function with original arguments
+
+```{r}
+analyze.prot('4AKE')
+analyze.prot('1AKE')
+analyze.prot('1E4Y')
+```
+
+
