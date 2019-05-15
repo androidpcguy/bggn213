@@ -1,0 +1,90 @@
+---
+title: 'Class 13: Genome Sequencing I'
+author: "Akshara Balachandra"
+date: "5/15/2019"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## MXL Genotype analysis
+
+
+Read in the data....
+```{r}
+dat <- read.csv('data/rs8067378_variation.csv', header = TRUE)
+head(dat)
+```
+
+```{r}
+gen.bad <- 'G|G'
+
+num.asthma.homoz <- sum(dat$Genotype..forward.strand. == gen.bad)
+
+#### OR
+
+table(dat$Genotype..forward.strand.)
+```
+
+Q5: What proportion of the Mexican Ancestry in Los Angeles sample population (MXL)
+are homozygous for the asthma associated SNP (G|G)?
+
+`r round(num.asthma.homoz*100/nrow(dat),1)`% of MXL population is homozygous for the asthma associated SNP.
+
+
+## Initial RNA-seq analysis
+
+### Quality score analysis
+
+```{r}
+library(seqinr)
+library(gtools)
+phread <- asc(s2c('DDDDCDEDCDDDBBDDDCC@')) - 33
+phread
+```
+
+
+
+### Expression analysis
+
+```{r}
+data <- read.csv('data/rs8067378_ENSG00000172057.6.txt', sep = ' ', header = TRUE)
+head(data)
+```
+
+```{r}
+print(summary(data))
+print(table(data$geno))
+
+#library(dplyr)
+
+summary(data[data$geno == 'G/G',]$exp)
+summary(data[data$geno == 'A/G',]$exp)
+summary(data[data$geno == 'A/A',]$exp)
+
+boxplot(exp ~ geno, data, notch = T)
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

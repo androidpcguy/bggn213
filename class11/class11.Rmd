@@ -1,0 +1,180 @@
+---
+title: "R Notebook"
+output: rmarkdown::github_document
+---
+
+## Revisit the PDB
+
+Downloaded csv file from www.rcsb.org/stats/summary on `r Sys.Date()`
+
+```{r}
+db <- read.csv('pdb_stats.csv', row.names = 1)
+db
+```
+
+Question 1: How many structures solved by X-ray and EM?
+
+```{r}
+xray <- db$Total[1]
+em <- db$Total[3]
+total <- sum(db$Total)
+
+print(paste(xray/total * 100, "% of structures solved by xray and", em/total*100, "% of structures solved by EM"))
+
+print(paste(sum(db$Proteins)/total*100, "% are protein structures and", sum(db$Nucleic.Acids)/total*100, "% are nucleic acid structures."))
+```
+There are 1157 HIV1-protease structures in PDB.
+
+## Section 2: VMD
+
+Hydrogens are not visible in this particular pdb file
+
+
+## Section 3. Using Bio3D
+
+```{r}
+library(bio3d)
+```
+
+Reading in the HIV PDB file...
+
+```{r}
+pdb <- read.pdb('1hsg.pdb')
+pdb
+```
+
+
+```{r}
+# one letter code aa321() function
+aa321(pdb$seqres)
+```
+
+
+
+```{r}
+# pdb$atom is a dataframe
+head(pdb$atom)
+```
+
+
+`pdb$atom` is a dataframe
+
+### Atom selection examples
+
+Let's select residue 10
+
+```{r}
+inds <- atom.select(pdb, resno = 10)
+```
+
+
+```{r}
+pdb$atom[inds$atom,]
+```
+
+
+```{r}
+atom.select(pdb, resno = 10, value = T)
+```
+
+We want to select only the protein sequence without water or the drug already there.
+We also want to isolate the ligand itself.
+
+```{r}
+protein.only <- atom.select(pdb, string = 'protein', value = TRUE)
+ligand.only <- atom.select(pdb, string = 'ligand', value = TRUE)
+
+protein.only
+ligand.only
+
+# write the protein and ligand to separate files
+write.pdb(pdb = protein.only, file = '1hsg_protein.pdb')
+write.pdb(pdb = ligand.only, file = '1hsg_ligand.pdb')
+```
+
+
+
+
+
+
+```{r}
+require(bio3d.view)
+view(protein.only)
+```
+
+
+
+## Section 6. Multiple sequence alignment
+
+```{r}
+# Download some example PDB files
+ids <- c("1TND_B","1AGR_A","1TAG_A","1GG2_A","1KJY_A","4G5Q_A")
+files <- get.pdb(ids, split = TRUE)
+```
+
+
+```{r}
+# Extract and align the chains we are interested in
+pdbs <- pdbaln(files, fit = TRUE)
+# Print to screen a summary of the 'pdbs' object
+pdbs
+```
+
+
+`rmsd` is measuring root mean square distance. We are aligning the sequences to each other to minimize
+distance between them.
+
+### Basic structure analysis
+
+```{r}
+seqidentity(pdbs)
+rmsd(pdbs)
+```
+
+
+Plot heirarchical clustering results...
+
+```{r}
+distance <- rmsd(pdbs)
+
+# clustering
+hc <- hclust(as.dist(distance))
+grps <- cutree(hc, k = 3)
+hc$labels <- ids # set the names properly
+
+# plot the results
+hclustplot(hc, k = 3)
+```
+
+
+
+
+### PCA
+
+```{r}
+pc.xray <- pca(pdbs)
+
+plot(pc.xray)
+```
+
+
+What is PC1 representing???
+
+```{r}
+pc1 <- mktrj(pc.xray, pc = 1, file = 'pc_1.pdb')
+view(pc1)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,14 @@
+receptor = 1hsg_protein.pdbqt
+ligand = 1hsg_ligand.pdbqt
+
+num_modes = 50
+
+center_x = 16.072
+center_y = 26.501
+center_z = 3.775
+
+size_x = 40
+size_y = 40
+size_z = 40
+
+seed = 2009

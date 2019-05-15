@@ -1,0 +1,103 @@
+---
+title: "Class 12"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Obtain and prepare our structure for docking
+
+Downloading HIV-pr structure from PDB....
+
+```{r}
+require(bio3d)
+
+prot.id <- '1hsg'
+
+file <- get.pdb(prot.id)
+pdb <- read.pdb(file)
+pdb
+```
+
+
+Extract the protein and ligands separately...
+
+```{r}
+pdb.prot <- trim.pdb(pdb, 'protein')
+pdb.lig <- trim.pdb(pdb, 'ligand')
+
+pdb.prot
+pdb.lig
+
+# write the pdb files to disk
+write.pdb(pdb.prot, '1hsg_protein.pdb')
+write.pdb(pdb.lig, '1hsg_ligand.pdb')
+```
+
+
+## Add hydrogens and charges in ADT
+We loaded the protein into autodock tools added, hydrogens,
+and extracted charges on each atom.
+
+## Run docking
+Run docking with Autodock vina...
+
+`vina --cpu 3 --config config.txt --log vina.log`
+
+## Inspect docking results
+We will process the docking results in R
+
+```{r}
+dock.res <- read.pdb('1hsg_ligand_out.pdbqt', multi = TRUE)
+write.pdb(dock.res, 'results.pdb')
+```
+
+
+Docking looks okay, the ligand and new molecule overlap in the protein pocket.
+
+## Quantify the docking results
+
+```{r}
+orig <- read.pdb('1hsg_ligand.pdbqt')
+rmsd(orig, dock.res)
+```
+
+
+## Normal Mode Analysis (NMA)
+
+We'll do NMA now...
+
+```{r}
+pdb <- read.pdb('1hel')
+modes <- nma(pdb)
+plot(modes, sse = pdb)
+
+mktrj(modes, mode = 7, file = 'nma_7.pdb')
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
