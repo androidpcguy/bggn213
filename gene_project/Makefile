@@ -6,7 +6,7 @@
 
 all: project.md
 	@echo "Compiling markdown..."
-	@pandoc project.md -o project.pdf
+	@pandoc --template latex.tex project.md -o project.pdf
 
 clean:
 	@rm -f project.pdf
