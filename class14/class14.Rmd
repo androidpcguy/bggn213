@@ -1,0 +1,288 @@
+---
+title: 'Class 14: RNAseq analysis'
+author: "Akshara Balachandra"
+date: "5/17/2019"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Library imports...
+
+```{r}
+library(DESeq2)
+library(dplyr)
+library(tibble)
+```
+
+
+Read count data and metadata...
+
+```{r}
+counts <- read.csv('data/airway_scaledcounts.csv', stringsAsFactors = F, row.names = 1)
+metadata <- read.csv('data/airway_metadata.csv', stringsAsFactors = F)
+
+#counts
+#metadata
+
+nrow(counts)
+sum(metadata$dex == 'control')
+```
+
+
+Q1: There are 38694 genes in the dataset.
+Q2: There are 4 control cell lines
+
+## Toy differential gene expression
+
+```{r}
+control.cells <- metadata$id[metadata$dex == 'control']
+treated.cells <- metadata$id[metadata$dex == 'treated']
+
+control.sub <- subset(counts, select = control.cells)
+treated.sub <- subset(counts, select = treated.cells)
+
+control.means <- apply(control.sub, 1, mean)
+treated.means <- apply(treated.sub, 1, mean)
+
+```
+
+
+
+```{r}
+control.mean <- sum(control.means)
+treated.mean <- sum(treated.means)
+
+mean.counts <- data.frame(control.means, treated.means)
+
+print(paste('Control mean', round(control.mean)))
+print(paste('Treated mean', round(treated.mean)))
+```
+
+Scatter plot of means of controls vs treated...
+
+```{r}
+plot(control.means, treated.means, xlab = 'Control',
+     ylab = 'Treated')
+```
+
+
+Plot with log scale...
+
+```{r}
+plot(control.means, treated.means, xlab = 'Control',
+     ylab = 'Treated', log = 'xy')
+```
+
+
+Let's combine the control and treated means and calculate log2 fold change...
+
+```{r}
+mean.counts <- data.frame(control.means, treated.means, 
+                          row.names = row.names(counts))
+
+mean.counts$log2foldchange <- log((mean.counts$treated.means/mean.counts$control.means),
+                                  base = 2)
+
+head(mean.counts)
+```
+
+
+Let's filter out the genes that had 0 expression...
+
+```{r}
+mean.counts <- mean.counts %>% rownames_to_column('gene') %>% 
+  filter(is.finite(log2foldchange)) %>% column_to_rownames('gene')
+head(mean.counts)
+```
+
+
+Let's figure out now how many genes are upregulated and downregulated after adding the treatment
+
+```{r}
+up.regulated <- mean.counts %>% rownames_to_column('gene') %>% 
+  filter(log2foldchange > 2) %>% column_to_rownames('gene')
+
+down.regulated <- mean.counts %>% rownames_to_column('gene') %>% 
+  filter(log2foldchange < -2) %>% column_to_rownames('gene')
+
+head(up.regulated)
+head(down.regulated)
+
+print(paste('There are', nrow(up.regulated), 'upregulated genes relative to control'))
+print(paste('There are', nrow(down.regulated), 'downregulated genes relative to control'))
+```
+
+
+
+## Adding annotation data
+
+Merge `r mean.counts` with annotation data...
+
+```{r}
+# read in annotations
+annot <- read.csv('data/annotables_grch38.csv',
+                  stringsAsFactors = F,
+                  row.names = NULL)
+
+# filter out duplicate entries
+annot <- annot[!duplicated(annot$ensgene),]
+
+row.names(annot) <- NULL
+
+annot <- annot %>% column_to_rownames('ensgene')
+head(annot)
+```
+
+Merge annotation with colmeans now.
+
+```{r}
+mean.counts.meta <- merge(x = mean.counts,
+                          y = annot,
+                          by = 0) %>% # by = 0 (rownames)
+  column_to_rownames('Row.names')
+
+head(mean.counts.meta)
+```
+
+
+Read in annotation package for homo sapiens (humans)
+
+```{r}
+library('AnnotationDbi')
+library('org.Hs.eg.db')
+
+columns(org.Hs.eg.db)
+```
+
+Add information to the counts data frame...
+
+```{r}
+mean.counts$symbol <- mapIds(org.Hs.eg.db, keytype = 'ENSEMBL',
+       keys = row.names(mean.counts),
+       column = 'SYMBOL',
+       multiVals = 'first')
+
+mean.counts$entrez <- mapIds(org.Hs.eg.db, keytype = 'ENSEMBL',
+       keys = row.names(mean.counts),
+       column = 'ENTREZID',
+       multiVals = 'first')
+
+mean.counts$uniprot <- mapIds(org.Hs.eg.db, keytype = 'ENSEMBL',
+       keys = row.names(mean.counts),
+       column = 'UNIPROT',
+       multiVals = 'first')
+
+head(mean.counts)
+```
+
+
+Q12:
+```{r}
+head(mean.counts[row.names(up.regulated),])
+head(mean.counts[row.names(down.regulated),])
+```
+
+I would not trust these results because we don't know if these results are true or just
+false positives.
+
+## DESeq2 analysis
+
+```{r}
+counts <- counts %>% rownames_to_column('ensgene')
+dds <- DESeqDataSetFromMatrix(countData = counts,colData = metadata, design=~dex,
+                              tidy = TRUE)
+dds
+
+dds <- DESeq(dds)
+```
+
+Get the results for threshold of log2foldchange of +/- 2, alpha
+level of 0.05...
+
+```{r}
+res <- results(dds)
+head(as.data.frame(res))
+
+summary(res)
+```
+
+Significance of 0.01...
+
+```{r}
+resSig01 <- results(dds, alpha = .01)
+head(as.data.frame(resSig01))
+
+summary(resSig01)
+```
+
+
+## Visualize
+
+```{r}
+plot( res$log2FoldChange,  -log(res$padj), 
+      xlab="Log2(FoldChange)",
+      ylab="-Log(P-value)")
+
+abline(h = -log(0.05), col = 'red')
+abline(v = log(2, base = 2))
+abline(v = -log(2, base = 2))
+```
+
+
+```{r}
+mycols <- rep("gray", nrow(res))
+mycols[ abs(res$log2FoldChange) > 2 ]  <- "red" 
+
+inds <- (res$padj < 0.01) & (abs(res$log2FoldChange) > 2 )
+mycols[ inds ] <- "blue"
+
+# Volcano plot with custom colors 
+plot( res$log2FoldChange,  -log(res$padj), 
+ col=mycols, ylab="-Log(P-value)", xlab="Log2(FoldChange)" )
+
+# Cut-off lines
+abline(v=c(-2,2), col="gray", lty=2)
+abline(h=-log(0.1), col="gray", lty=2)
+
+
+```
+
+
+We can use the enhanced volcano plotting functions in bioconductor.
+First, let's add the annotations.
+
+```{r}
+x <- as.data.frame(res)
+x$symbol <- mapIds(org.Hs.eg.db, 
+                   keys=row.names(x),
+                   keytype="ENSEMBL",
+                   column="SYMBOL",
+                   multiVals="first")
+```
+
+```{r}
+library(EnhancedVolcano)
+EnhancedVolcano(x, lab = x$symbol, x = 'log2FoldChange', y = 'pvalue')
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

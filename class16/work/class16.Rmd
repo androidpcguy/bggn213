@@ -1,0 +1,19 @@
+---
+title: 'Class 16: UNIX4LYFE'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Analysis demo
+
+```{r}
+b <- read.delim('./mm-second.x.zebrafish.tsv')
+
+colnames(b) <- c("qseqid", "sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore")
+
+plot(b$pident  * (b$qend - b$qstart), b$bitscore)
+```
+

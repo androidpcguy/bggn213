@@ -1,0 +1,230 @@
+---
+title: "Class 15: Pathway analysis from RNA-seq results"
+author: "Akshara Balachandra"
+date: "05/22/19"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Differential Expression analysis
+
+```{r}
+library(DESeq2)
+library(dplyr)
+```
+
+Load the data...
+
+```{r}
+metadata <- read.csv('data/GSE37704_metadata.csv', row.names = 1)
+counts <- read.csv('data/GSE37704_featurecounts.csv', row.names = 1)
+
+head(metadata)
+head(counts)
+```
+
+Remove the first column from `r counts` dataframe.
+
+```{r}
+counts <- as.matrix(counts[,2:ncol(counts)])
+head(counts)
+```
+
+Filter out all rows with 0 values
+
+```{r}
+filteredCounts <- counts[rowSums(counts) != 0,]
+head(filteredCounts)
+```
+
+
+### Running DEseq2
+
+```{r}
+dds <- DESeqDataSetFromMatrix(countData = filteredCounts, colData = metadata,
+                              design= ~condition)
+
+dds <- DESeq(dds)
+dds
+```
+
+
+Extract the results...
+
+```{r}
+res <- results(dds)
+summary(res)
+```
+
+
+### Volcano Plot
+
+```{r}
+plot(res$log2FoldChange, -log(res$padj))
+```
+
+
+Adding all the colors!!!!
+
+```{r}
+mycol <- rep('gray', nrow(res))
+
+mycol[abs(res$log2FoldChange) > 2] <- 'red'
+mycol[(abs(res$log2FoldChange) > 2) & (-log(res$padj) > 2)] <- 'blue'
+
+plot(res$log2FoldChange, -log(res$padj), col = mycol,
+     xlab = "Log2(fold change)", ylab = '-Log(p-value)')
+```
+
+
+```{r}
+nrow(filteredCounts)
+```
+
+### Add gene annotation
+
+```{r}
+library(AnnotationDbi)
+library(org.Hs.eg.db)
+
+#columns(org.Hs.eg.db)
+
+res$symbol = mapIds(org.Hs.eg.db,
+                    keys = row.names(res), 
+                    keytype="ENSEMBL",
+                    column='SYMBOL',
+                    multiVals="first")
+
+res$entrez = mapIds(org.Hs.eg.db,
+                    keys=row.names(res),
+                    keytype="ENSEMBL",
+                    column="ENTREZID",
+                    multiVals="first")
+
+res$name =   mapIds(org.Hs.eg.db,
+                    keys=row.names(res),
+                    keytype='ENSEMBL',
+                    column='GENENAME',
+                    multiVals="first")
+
+head(res, 10)
+
+```
+
+
+Order the results by *p*-value and save to disk.
+
+```{r}
+res <- res[order(res$pvalue),]
+write.csv(res, file = 'data/deseq_results.csv')
+```
+
+## Pathway Analysis
+
+Import all the packages...
+
+```{r}
+library(gage)
+library(gageData)
+library(pathview)
+
+data(kegg.sets.hs)
+data(sigmet.idx.hs)
+```
+
+Inspecting some of the data
+
+```{r}
+# Focus on signaling and metabolic pathways only
+kegg.sets.hs <- kegg.sets.hs[sigmet.idx.hs]
+
+# Examine the first 3 pathways
+head(kegg.sets.hs, 3)
+```
+
+```{r}
+foldchanges <- res$log2FoldChange
+names(foldchanges) <- res$entrez
+head(foldchanges)
+```
+
+
+Gage pathway analyssi.....
+
+```{r}
+# Get the results
+keggres <- gage(foldchanges, gsets=kegg.sets.hs)
+attributes(keggres)
+```
+
+```{r}
+head(keggres$less)
+```
+
+
+
+Pathway visualization
+
+
+```{r}
+pathview(gene.data=foldchanges, pathway.id="hsa04110")
+```
+
+
+Do same for top 5 downregulated...
+
+```{r}
+SPECIES = 'hsa'
+
+down5 <- unlist(strsplit(rownames(keggres$less)[1:5], split = ' '))
+down5 <- down5[grepl(pattern = SPECIES, down5)]
+
+up5 <- unlist(strsplit(rownames(keggres$greater)[1:5], split = ' '))
+up5 <- up5[grepl(pattern = SPECIES, up5)]
+```
+
+```{r}
+pathview(gene.data = foldchanges, pathway.id = down5, species = SPECIES)
+pathview(gene.data = foldchanges, pathway.id = up5, species = SPECIES)
+```
+
+## Gene ontology
+
+```{r}
+data(go.sets.hs)
+data(go.subs.hs)
+
+# Focus on Biological Process subset of GO
+gobpsets <- go.sets.hs[go.subs.hs$BP]
+
+gobpres <- gage(foldchanges, gsets=gobpsets, same.dir=TRUE)
+
+lapply(gobpres, head)
+```
+
+Pathview for GO dataset
+
+```{r}
+SPECIES = 'GO'
+
+down5 <- unlist(strsplit(rownames(gobpres$less)[1:5], split = ' '))
+down5 <- down5[grepl(pattern = SPECIES, down5)]
+
+up5 <- unlist(strsplit(rownames(gobpres$greater)[1:5], split = ' '))
+up5 <- up5[grepl(pattern = SPECIES, up5)]
+
+down5
+
+```
+
+```{r}
+pathview(gene.data = foldchanges, pathway.id = down5, species = SPECIES)
+pathview(gene.data = foldchanges, pathway.id = up5, species = SPECIES)
+```
+
+
+
+

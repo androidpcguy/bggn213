@@ -1,0 +1,178 @@
+BLASTP 2.6.0+
+
+
+Reference: Stephen F. Altschul, Thomas L. Madden, Alejandro A.
+Schaffer, Jinghui Zhang, Zheng Zhang, Webb Miller, and David J.
+Lipman (1997), "Gapped BLAST and PSI-BLAST: a new generation of
+protein database search programs", Nucleic Acids Res. 25:3389-3402.
+
+
+Reference for composition-based statistics: Alejandro A. Schaffer,
+L. Aravind, Thomas L. Madden, Sergei Shavirin, John L. Spouge, Yuri
+I. Wolf, Eugene V. Koonin, and Stephen F. Altschul (2001),
+"Improving the accuracy of PSI-BLAST protein database searches with
+composition-based statistics and other refinements", Nucleic Acids
+Res. 29:2994-3005.
+
+
+
+Database: zebrafish.1.protein.faa
+           52,966 sequences; 38,538,759 total letters
+
+
+
+Query= YP_220550.1 NADH dehydrogenase subunit 1 (mitochondrion) [Mus
+musculus domesticus]
+
+Length=318
+                                                                      Score     E
+Sequences producing significant alignments:                          (Bits)  Value
+
+  NP_059331.1 NADH dehydrogenase subunit 1 (mitochondrion) [Danio...  426     1e-150
+
+
+> NP_059331.1 NADH dehydrogenase subunit 1 (mitochondrion) [Danio 
+rerio]
+Length=324
+
+ Score = 426 bits (1096),  Expect = 1e-150, Method: Compositional matrix adjust.
+ Identities = 216/313 (69%), Positives = 263/313 (84%), Gaps = 0/313 (0%)
+
+Query  4    INILTLLVPILIAMAFLTLVERKILGYMQLRKGPNIVGPYGILQPFADAMKLFMKEPMRP  63
+            IN L   VP+LIA+AFLTLVERK+LGYMQLRKGPN++GP G+LQ  AD +KLF+KEP+RP
+Sbjct  10   INPLAYAVPVLIAVAFLTLVERKVLGYMQLRKGPNVMGPRGLLQSVADGVKLFIKEPIRP  69
+
+Query  64   LTTSMSLFIIAPTLSLTLALSLWVPLPMPHPLINLNLGILFILATSSLSVYSILWSGWAS  123
+               S  LF+ AP L+L LA+ LW P+PMP+P+++LNLGILFI+A SSL+VYSIL SGWAS
+Sbjct  70   SMASPILFLTAPVLALILAMMLWAPMPMPYPVLDLNLGILFIMAISSLAVYSILGSGWAS  129
+
+Query  124  NSKYSLFGALRAVAQTISYEVTMAIILLSVLLMNGSYSLQTLITTQEHMWLLLPAWPMAM  183
+            NSKY+L GALRAVAQTISYEV++ +ILLS ++ +G Y+LQT  TTQE  WLLLP WP+A+
+Sbjct  130  NSKYALIGALRAVAQTISYEVSLGLILLSAVIFSGGYTLQTFNTTQEDTWLLLPLWPLAI  189
+
+Query  184  MWFISTLAETNRAPFDLTEGESELVSGFNVEYAAGPFALFFMAEYTNIILMNALTTIIFL  243
+            MWFISTLAETNRAPFDLTEGESELVSGFNVEYAAGPFALFF+AEY+NI+LMN  +T++FL
+Sbjct  190  MWFISTLAETNRAPFDLTEGESELVSGFNVEYAAGPFALFFLAEYSNILLMNTHSTVLFL  249
+
+Query  244  GPLYYINLPELYSTNFMMEALLLSSTFLWIRASYPRFRYDQLMHLLWKNFLPLTLALCMW  303
+            G  +  + PEL + +   +  +LS  FLW+RASYPRFRYDQLMHL+WKNFLP+TL L +W
+Sbjct  250  GASFTPDAPELMTISIATKTAMLSILFLWMRASYPRFRYDQLMHLIWKNFLPITLVLVLW  309
+
+Query  304  HISLPIFTAGVPP  316
+            HI+LPI  AG+PP
+Sbjct  310  HIALPIALAGLPP  322
+
+
+
+Lambda      K        H        a         alpha
+   0.328    0.140    0.437    0.792     4.96 
+
+Gapped
+Lambda      K        H        a         alpha    sigma
+   0.267   0.0410    0.140     1.90     42.6     43.6 
+
+Effective search space used: 6891870510
+
+
+Query= YP_220551.1 NADH dehydrogenase subunit 2 (mitochondrion) [Mus
+musculus domesticus]
+
+Length=345
+                                                                      Score     E
+Sequences producing significant alignments:                          (Bits)  Value
+
+  NP_059332.1 NADH dehydrogenase subunit 2 (mitochondrion) [Danio...  279     9e-92
+  NP_059341.1 NADH dehydrogenase subunit 5 (mitochondrion) [Danio...  49.7    5e-06
+  NP_059340.1 NADH dehydrogenase subunit 4 (mitochondrion) [Danio...  35.8    0.10 
+
+
+> NP_059332.1 NADH dehydrogenase subunit 2 (mitochondrion) [Danio 
+rerio]
+Length=348
+
+ Score = 279 bits (713),  Expect = 9e-92, Method: Compositional matrix adjust.
+ Identities = 154/346 (45%), Positives = 224/346 (65%), Gaps = 4/346 (1%)
+
+Query  1    MNPITLAIIYFTIFLGPVITMSSTNLMLMWVGLEFSLLAIIPMLINKKNPRSTEAATKYF  60
+            MNP  L I+  ++ LG  +T SS++ +L W+GLE + LAI+P++  + +PR+ EA TKYF
+Sbjct  1    MNPYVLMILMSSLGLGTTLTFSSSHWILAWMGLEINTLAIVPLMAQQHHPRAVEATTKYF  60
+
+Query  61   VTQATASMIILLAIVLNYKQLGTWMFQQQTNGLILNMTLMALSMKLGLAPFHFWLPEVTQ  120
+            + QA A+ +IL     N    G W              + AL++K+GLAP HFWLPEV Q
+Sbjct  61   LIQAAAAAMILFTSTTNAWISGQWDVTGMPGPATSTAMMFALALKIGLAPMHFWLPEVLQ  120
+
+Query  121  GIPLHMGLILLTWQKIAPLSILIQIYPLLNSTIILMLAITSIFMGAWGGLNQTQMRKIMA  180
+            G+ L  GLIL TWQK+AP++++IQ     +  I+  L I S  +G W GLNQTQ+RKI+A
+Sbjct  121  GLDLLTGLILSTWQKLAPMALIIQTTQTTDPLILTSLGIASSLIGGWSGLNQTQLRKILA  180
+
+Query  181  YSSIAHMGWMLAILPYNPSLTLLNLMIYIILTAPMFMALMLNNSMTINSISLLWNKTPAM  240
+            YSSIAHMGWM+ ++ Y P LTL+ L  YI +T+  F+ L + ++  IN+++  W K+P +
+Sbjct  181  YSSIAHMGWMIIVIQYAPQLTLIALGTYIFMTSAAFLTLKVLSATKINTLTTTWPKSPIL  240
+
+Query  241  LTMISLMLLSLGGLPPLTGFLPKWIIITELMKNNCLIMATLMAMMALLNLFFYTRLIYST  300
+              + +L++LSLGGLPPLTGF+PKW+I+ EL K +    AT+MA+ ALL+LFFY RL ++ 
+Sbjct  241  AAIATLVMLSLGGLPPLTGFMPKWLILQELTKQDLPATATIMALTALLSLFFYLRLCHAM  300
+
+Query  301  SLTMFPTNNNSKMMTH-QTKTKPNLMFSTLAIMSTMT-LPLAPQLI  344
+            +LT  P   NS    H + +T  N +  T+++  TM  LPL P ++
+Sbjct  301  TLTTSPNTINSA--PHWRVQTTQNSLPLTISVTVTMGLLPLTPAIL  344
+
+
+> NP_059341.1 NADH dehydrogenase subunit 5 (mitochondrion) [Danio 
+rerio]
+Length=606
+
+ Score = 49.7 bits (117),  Expect = 5e-06, Method: Compositional matrix adjust.
+ Identities = 40/163 (25%), Positives = 75/163 (46%), Gaps = 11/163 (7%)
+
+Query  112  HFWLPEVTQGIPLHMGLILLTWQKIAPLSILIQIYPLLNS-----TIILMLAITSIFMGA  166
+            H WLP   +G      L+  +   +A + +LI+++P++ +     TI L L   +    A
+Sbjct  231  HPWLPSAMEGPTPVSALLHSSTMVVAGIFLLIRLHPIMETNKLAPTICLCLGALTTLFAA  290
+
+Query  167  WGGLNQTQMRKIMAYSSIAHMGWMLAILPYN-PSLTLLNLMIYIILTAPMFMA-----LM  220
+               L Q  ++KI+A+S+ + +G M+  +  N P L   ++  +    A +F+        
+Sbjct  291  TCALTQNDIKKIVAFSTSSQLGLMMVAIGLNQPHLAFFHICTHAFFKAMLFLCSGAIIHS  350
+
+Query  221  LNNSMTINSISLLWNKTPAMLTMISLMLLSLGGLPPLTGFLPK  263
+            LNN   I  +   ++  P     +++  ++L G P L GF  K
+Sbjct  351  LNNEQDIRKMGGTYHTLPMTTNYLTIGKMALMGTPFLAGFFSK  393
+
+
+> NP_059340.1 NADH dehydrogenase subunit 4 (mitochondrion) [Danio 
+rerio]
+Length=460
+
+ Score = 35.8 bits (81),  Expect = 0.10, Method: Compositional matrix adjust.
+ Identities = 26/97 (27%), Positives = 47/97 (48%), Gaps = 6/97 (6%)
+
+Query  98   TLMALSMKLGLAPFHFWLPEVTQGIPLH----MGLILLTWQKIAPLSILIQIYPLLNSTI  153
+             L+A  +K+ L   H WLP+     P+     +  +LL       + +++ + PL     
+Sbjct  200  CLIAFLVKMPLYGMHLWLPKAHVEAPVAGSMILAAVLLKLGGYGMMRMMVMLDPLSKQLA  259
+
+Query  154  --ILMLAITSIFMGAWGGLNQTQMRKIMAYSSIAHMG  188
+               ++LA+  + M     L QT ++ ++AYSS+ HMG
+Sbjct  260  YPFIILALWGVIMTGLVCLRQTDLKSLIAYSSVGHMG  296
+
+
+
+Lambda      K        H        a         alpha
+   0.328    0.137    0.410    0.792     4.96 
+
+Gapped
+Lambda      K        H        a         alpha    sigma
+   0.267   0.0410    0.140     1.90     42.6     43.6 
+
+Effective search space used: 7732649740
+
+
+  Database: zebrafish.1.protein.faa
+    Posted date:  May 24, 2019  5:12 PM
+  Number of letters in database: 38,538,759
+  Number of sequences in database:  52,966
+
+
+
+Matrix: BLOSUM62
+Gap Penalties: Existence: 11, Extension: 1
+Neighboring words threshold: 11
+Window for multiple hits: 40
