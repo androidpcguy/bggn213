@@ -6,9 +6,9 @@
 
 all: project.md
 	@echo "Compiling markdown..."
-	@pandoc --template latex.tex project.md -o project.pdf
+	@pandoc --template latex.tex project.md -o BGGN213_S19_abalacha.pdf
 
 clean:
-	@rm -f project.pdf
+	@rm -f *.pdf
 
 new: clean all

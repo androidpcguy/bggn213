@@ -14,7 +14,7 @@ date: May 15, 2019
 
 # Question 2: BLAST search
 
-**Method**: TBLASTN (2.7.1) search against Xenopus ESTs
+**Method**: TBLASTN search against Xenopus ESTs
 
 **Database**: Expressed sequence tags (est)
 
@@ -67,7 +67,7 @@ Sbjct  701  NVRPGDVIYSADRR--DMTLREAMVEKVDL-EEDIGGFCPRNCPG  826
 
 \pagebreak
 
-# Question 3
+# Question 3: Novel Protein Information
 
 **Chosen Sequence:**
 ```
@@ -86,7 +86,7 @@ AMVEKVDLEEDIGGFCPRNCPG
 Eukaryota; Metazoa; Chordata; Craniata; Vertebrata; Euteleostomi;
 Amphibia; Batrachia; Anura; Pipoidea; Pipidae; Xenopodinae; Xenopus; Silurana
 
-# Question 4
+# Question 4: Proof that gene/protein are novel
 
 A BLASTP search against the NR database yielded a top hit to a protein from
 *Xenopus tropicalis* with 100% coverage and 97.71% identity. The alignment
