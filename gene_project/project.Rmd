@@ -1,0 +1,45 @@
+---
+title: "gene project"
+author: "akshara balachandra"
+date: "5/30/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(bio3d)
+library(gplots)
+```
+
+# Read the data and align.
+```{r}
+raw <- read.fasta('./data/all.fst')
+
+## Align these sequences with default parameters
+aln <- seqaln(raw, id=raw$id, outfile="alignment.fa", exefile = 'muscle')
+```
+
+# Generate heatmap
+
+```{r}
+alignment <- read.fasta('alignment.fa')
+ident <- seqidentity(alignment)
+
+png('img/heatmap.png', width = 1000, height = 1000)
+heatmap.2(ident, key=FALSE, symkey=FALSE, density.info="none", trace="none", margins = c(21, 21), cexRow = 2, cexCol = 2)
+dev.off()
+```
+
+# Generate consensus sequence
+```{r}
+cons.seq <- consensus(aln, cutoff = 0.5)
+print(cons.seq$seq)
+print(sum(cons.seq$seq != '-')/length(cons.seq$seq))
+seq <- cons.seq$seq
+```
+
+# PDB search
+```{r}
+blast.pdb(seq = seq, database = 'pdb')
+```
+
