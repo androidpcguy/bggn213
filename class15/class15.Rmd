@@ -26,7 +26,7 @@ head(metadata)
 head(counts)
 ```
 
-Remove the first column from `r counts` dataframe.
+Remove the first column from `counts` dataframe.
 
 ```{r}
 counts <- as.matrix(counts[,2:ncol(counts)])
@@ -221,8 +221,8 @@ down5
 ```
 
 ```{r}
-pathview(gene.data = foldchanges, pathway.id = down5, species = SPECIES)
-pathview(gene.data = foldchanges, pathway.id = up5, species = SPECIES)
+#pathview(gene.data = foldchanges, pathway.id = down5, species = SPECIES)
+#pathview(gene.data = foldchanges, pathway.id = up5, species = SPECIES)
 ```
 
 

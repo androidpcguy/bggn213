@@ -13,8 +13,8 @@ Library imports...
 
 ```{r}
 library(DESeq2)
-library(dplyr)
 library(tibble)
+library(dplyr)
 ```
 
 
@@ -115,11 +115,9 @@ print(paste('There are', nrow(up.regulated), 'upregulated genes relative to cont
 print(paste('There are', nrow(down.regulated), 'downregulated genes relative to control'))
 ```
 
-
-
 ## Adding annotation data
 
-Merge `r mean.counts` with annotation data...
+Merge `mean.counts` with annotation data...
 
 ```{r}
 # read in annotations
@@ -213,7 +211,7 @@ Significance of 0.01...
 
 ```{r}
 resSig01 <- results(dds, alpha = .01)
-head(as.data.frame(resSig01))
+#head(as.data.frame(resSig01))
 
 summary(resSig01)
 ```
