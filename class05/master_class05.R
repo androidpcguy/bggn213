@@ -6,6 +6,6 @@
 #'---
 # master R file
 
-source("class05.R")
-source("class05_2.R")
-source("class05_3.R")
+source("class05.R", echo = T)
+source("class05_2.R", echo = T)
+source("class05_3.R", echo = T)

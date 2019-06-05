@@ -6,19 +6,19 @@ Akshara Balachandra
 ``` r
 # master R file
 
-source("class05.R")
+source("class05.R", echo = T)
 ```
 
 ![](master_class05_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
 
 ``` r
-source("class05_2.R")
+source("class05_2.R", echo = T)
 ```
 
 ![](master_class05_files/figure-gfm/unnamed-chunk-1-2.png)<!-- -->
 
 ``` r
-source("class05_3.R")
+source("class05_3.R", echo = T)
 ```
 
 ![](master_class05_files/figure-gfm/unnamed-chunk-1-3.png)<!-- -->![](master_class05_files/figure-gfm/unnamed-chunk-1-4.png)<!-- -->

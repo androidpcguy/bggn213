@@ -1,0 +1,22 @@
+---
+title: 'Class 05: R Graphics'
+author: "Akshara Balachandra"
+date: "6/5/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+source('./class05.R', echo = T)
+```
+
+```{r}
+source('./class05_2.R', echo = T)
+```
+
+```{r}
+source('./class05_3.R', echo = T)
+```
