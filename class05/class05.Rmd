@@ -2,7 +2,7 @@
 title: 'Class 05: R Graphics'
 author: "Akshara Balachandra"
 date: "6/5/2019"
-output: html_document
+output: github_document
 ---
 
 ```{r setup, include=FALSE}
