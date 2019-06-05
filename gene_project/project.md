@@ -14,6 +14,9 @@ header-includes:
 
 **Species**: Homo sapiens
 
+**Function**: Critical role in development of the nervous system, lungs, teeth, and may
+also have regenerative functions.
+
 # Question 2: BLAST search
 
 **Method**: TBLASTN search against Xenopus ESTs
@@ -178,7 +181,6 @@ Burmese_python          ----MLLRRRSGLLPLCLGALFLSAGLACGPGRGFGKRRHPKKLTPLAYKQFIPNV
 Tiger_snake             ----MLLLRRTGLLPLCLGALFLSAGLACGPGRGFGKRRHPKKLTPLAYKQFIPNVAEKT
 Human                   ----MLLLARCLLLVL-VSSLLVCSGLACGPGRGFGKRRHPKKLTPLAYKQFIPNVAEKT
 
-
 Iberian_newt            LGASGRYEVKITRNSERFQELTPNYNPDIIFKVEENTGADRLMTQRCKDKLNSLAISVMN
 Mexican_walking_fish    LGASGRYEGKITRNSDRFKELTPNYNPDIIFKDEENTGADRLMTQRCKDKLNALAISVMN
 African_clawed_frog     LGASGRYEGKIASNSDRFKELTPNYNPDIVFKDEENTGADRLMTQRCKDKLNALAISVMN
@@ -298,4 +300,14 @@ similar.
 
 # Question 10: CHEMBL Assays
 
+Performing a CHEMBL search for the Xenopus SHH sequence from Question 3 gave me hits to two SHH genes from
+different species, Mus *musculus* (CHEMBL5387) and Homo *sapiens* (CHEMBL5602). For the top hit (CHEMBL5387),
+there are 26 binding assays and 23 Functional assays. There are also 125 ligand efficiency assays.
 
+The study referenced below involved a small molecule that binds Shh in human cells, robotnikinin. Robotnikinin
+significantly inhibits Shh activity and presents as a "valuable...probe of dieases associated with aberrant Shh-pathway
+activity."
+
+Stanton, B.Z., Peng, L.F., Maloof, N., Nakai, K., Wang, X., Duffner, J.L., Taveras, K.M., Hyman, J.M.,
+Lee, S.W., Koehler, A.N. and Chen, J.K., 2009. A small molecule that binds Hedgehog and blocks its signaling
+in human cells. *Nature chemical biology*, 5(3), p.154.
