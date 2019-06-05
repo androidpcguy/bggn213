@@ -55,3 +55,21 @@ for(i in pdb.results$hit.tbl$subjectids){
 prot.ids <- c('6DMY_B', '1VHH_A', '3K7G_B')
 ```
 
+```{r}
+print(pdb.annotate(prot.ids)[,c('structureId', 'compound', 'experimentalTechnique', 'resolution', 'source')])
+print(pdb.results$hit.tbl[pdb.results$hit.tbl$subjectids %in% prot.ids,c('subjectids','evalue', 'identity')])
+
+write.fasta(ids = 'Consensus Sequence 50% threshold', seqs = seq, file = './consensus_seq.fasta')
+```
+
+## FASTA sequence for 3K7G
+```{r}
+annot <- pdb.annotate('3K7G_B')
+
+indian.hedgehog <- annot$sequence
+write.fasta(id = 'Indian_Hedgehog_Homo_sapiens', seqs = indian.hedgehog, file = 'indian_hedgehog.fasta')
+
+get.pdb('3K7G_B')
+```
+
+
