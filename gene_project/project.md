@@ -2,6 +2,8 @@
 author: Akshara Balachandra, A11933675
 title: Find a Gene Project (BGGN 213)
 date: May 15, 2019
+header-includes:
+- \usepackage{booktabs}
 ---
 
 # Question 1: Name of the protein
@@ -258,5 +260,42 @@ The resulting tree is this.
 ![Heatmap derived from the sequence alignments.](./img/heatmap.png){ width=4in }
 
 # Question 8: Protein Database Search
+Consensus sequence:
+
+```
+>Consensus Sequence 50% threshold
+----MLLLRR-LLL-L----LL---GL-CGPGRG-GKRRHPKKLTPLAYKQFIPNVAEKT
+LGASGRYEGKI-RNSERFKELTPNYNPDIIFKDEENTGADRLMTQRCKDKLNALAISVMN
+QWPGVKLRVTEGWDEDGHHSEESLHYEGRAVDITTSDRDRSKYGMLARLAVEAGFDWVYY
+ESKAHIHCSVKAENSVAAKSGGCFPGSA-V-LE-GGTK-VKDLRPGDRVLAAD-QG-L-Y
+SDFL-FLD-E---V-KLFYVIET--PR-RLRLTAAHLLFVA---P-N-S-----------
+--------F-S-FASRVRPG--VY--D----G--L-EA-V--V-L-EEA-GAYAPLTA-G
+T--I--VLASCYAVIEEHSWAHWAFAP-R-----L--L-P--------------------
+---------P--------GVHWYS-LLY-IGTW-L-S---HPLGMA-KSS
+```
+
+
+\begin{table}[h]
+\caption{Similar atomic resolution structures from PDB to the consensus sequence
+generated from alignments requiring at least 50\% sequence identity threshold.}
+\label{tab:my-table}
+\begin{tabular}{@{}lllllll@{}}
+\toprule
+ID   & Name                    & Technique           & Resolution & Source       & Evalue    & Identity \\ \midrule
+6DMY & Sonic Hedgehog protein  & Electron microscopy & 3.6        & Homo sapiens & 3.98e-124 & 98.286   \\
+1VHH & SONIC HEDGEHOG          & X-ray diffraction   & 1.7        & Mus musculus & 1.79e-116 & 99.383   \\
+3K7G & Indian Hedgehog protein & X-ray diffraction   & 1.5        & Homo sapiens & 7.96e-113 & 88.136   \\ \bottomrule
+\end{tabular}
+\end{table}
+
+# Question 9: Molecular figure
+
+![VMD rendering of `3K7G` Indian Hedgehog protein from Homo *sapiens*](./img/vmdscene.png){ width=5in }
+
+The Indian Hedgehog protein is very likely to have similar structural motifs as and functions to Xenopus sonic hedgehog,
+since this protein has 88.14% identity to the consensus sequence. Sequence similarity above 80% is considered very
+similar.
+
+# Question 10: CHEMBL Assays
 
 

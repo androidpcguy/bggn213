@@ -40,6 +40,18 @@ seq <- cons.seq$seq
 
 # PDB search
 ```{r}
-blast.pdb(seq = seq, database = 'pdb')
+burmese.python <- aln$ali["Burmese_python",]
+pdb.results <- blast.pdb(seq = seq, database = 'pdb')
+
+pdb.results$hit.tbl$subjectids
+# biomart r package for annotations
+```
+```{r}
+for(i in pdb.results$hit.tbl$subjectids){
+    annot <- pdb.annotate(substr(i, 1,4))
+    print(paste(i, ":", annot$source, annot$compound))
+}
+
+prot.ids <- c('6DMY_B', '1VHH_A', '3K7G_B')
 ```
 

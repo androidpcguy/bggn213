@@ -1,0 +1,136 @@
+---
+title: 'Class 18: Cancer genomics'
+author: "Akshara Balachandra"
+date: "5/31/2019"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Load the libraries
+```{r}
+require(GenomicDataCommons)
+require(TCGAbiolinks)
+require(maftools)
+require(dplyr)
+```
+
+```{r}
+status()
+```
+
+# Section 1
+## Querying GDC from R
+
+```{r}
+projects <- getGDCprojects()
+head(projects)
+```
+
+
+Find number of cases per project
+
+```{r}
+cases.by.proj <- cases() %>% facet('project.project_id') %>%
+  aggregations()
+head(cases.by.proj$project.project_id)
+```
+
+Plot the number of cases by project
+
+```{r}
+colvec <- rep('lightblue', nrow(cases.by.proj$project.project_id))
+colvec[cases.by.proj$project.project_id$key == 'TCGA-PAAD'] <- 'red'
+
+
+par(mar = c(9, 4, 1, 1))
+barplot(cases.by.proj$project.project_id$doc_count, 
+        names.arg = cases.by.proj$project.project_id$key,
+        log = 'y',
+        las = 2,
+        col = colvec)
+```
+
+
+
+Exploratory analyses.
+
+```{r}
+samp <- getSampleFilesSummary('TCGA-PAAD')
+head(samp)
+```
+
+```{r}
+query <- GDCquery(project = 'TCGA-PAAD',
+                  data.category = 'Transcriptome Profiling',
+                  data.type = 'Gene Expression Quantification')
+ans <- getResults(query)
+
+head(ans)
+
+nrow(ans)
+```
+
+## Section 2
+
+Read in fasta sequence
+
+```{r}
+require(bio3d)
+
+seqs <- read.fasta('./data/lecture18_sequences.fa')
+#head(seqs)
+```
+
+Q1: Identify sequence regions that contain all 9-mer peptides that are only found in the tumor.
+
+Align the sequences and do it.
+
+```{r}
+aln <- seqaln(seqs, exefile = 'muscle', outfile = 'cancer_aln.fasta')
+
+align <- aln$ali[,which(aln$ali[2,] != '-')] # filter out parts of seq where it doesn't exist
+
+inds <- which(apply(align, 2, function(x) {length(unique(x)) != 1}))
+
+#align[,inds]
+
+nine.mers <- lapply(inds, function(x) {
+  if(x < 8) {
+    return(aln$ali[2,0:(x+8)])
+  }
+  return(aln$ali[2,(x - 8):(x+8)])
+})
+
+nine.mers
+max_length <- length(nine.mers[[1]])
+list_lists <- sapply (nine.mers, function (x) {length (x) <- max_length; return (x)})
+
+t(list_lists)
+write.fasta(seqs = t(list_lists), ids = c(1:4), file = 'nine-mers.fasta')
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
