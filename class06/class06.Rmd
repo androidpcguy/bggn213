@@ -120,10 +120,16 @@ rescale3(1:10, plot = T)
 ## Practical protein interaction example
 
 ```{r}
-source('./bio3d_example.R')
-prot_interact('4AKE')
-prot_interact('1AKE')
-prot_interact('1E4Y')
+source('./bio3d_example.R', echo = T)
+
+prot_interact
+
+int1 <- prot_interact('4AKE', ret = T)
+int2 <- prot_interact('1AKE', ret = T)
+int3 <- prot_interact('1E4Y', ret = T)
+
+hc <- hclust( dist( rbind(int1, int2, int3) ) )
+plot(hc)
 ```
 
 
