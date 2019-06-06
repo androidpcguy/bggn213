@@ -1,10 +1,7 @@
----
-title: 'Class 13: Genome Sequencing I'
-author: "Akshara Balachandra"
-date: "5/15/2019"
-output: rmarkdown::github_document
----
-
+Class 13: Genome Sequencing I
+========================
+Akshara Balachandra
+5/15/2019
 
 
 ## MXL Genotype analysis
