@@ -3,6 +3,8 @@
 Various coursework from [BGGN 213 SP19](https://bioboot.github.io/bggn213_S19) quarter
 at UC San Diego.
 
+[Find a gene project](gene_project/BGGN213_S19_abalacha.pdf)
+
 [Class 05: R Graphics](class05/class05.md)
 
 [Class 06: R Functions](class06/class06.md)
