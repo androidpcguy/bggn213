@@ -2,7 +2,7 @@
 title: 'Class 13: Genome Sequencing I'
 author: "Akshara Balachandra"
 date: "5/15/2019"
-output: github_document
+output: rmarkdown::github_document
 ---
 
 ```{r setup, include=FALSE}

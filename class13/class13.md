@@ -2,7 +2,7 @@
 title: 'Class 13: Genome Sequencing I'
 author: "Akshara Balachandra"
 date: "5/15/2019"
-output: github_document
+output: rmarkdown::github_document
 ---
 
 
@@ -46,8 +46,8 @@ table(dat$Genotype..forward.strand.)
 ```
 
 ```
-## 
-## A|A A|G G|A G|G 
+##
+## A|A A|G G|A G|G
 ##  22  21  12   9
 ```
 
@@ -70,7 +70,7 @@ phread
 ```
 
 ```
-##  D  D  D  D  C  D  E  D  C  D  D  D  B  B  D  D  D  C  C  @ 
+##  D  D  D  D  C  D  E  D  C  D  D  D  B  B  D  D  D  C  C  @
 ## 35 35 35 35 34 35 36 35 34 35 35 35 33 33 35 35 35 34 34 31
 ```
 
@@ -100,13 +100,13 @@ print(summary(data))
 ```
 
 ```
-##      sample     geno          exp        
-##  HG00096:  1   A/A:108   Min.   : 6.675  
-##  HG00097:  1   A/G:233   1st Qu.:20.004  
-##  HG00099:  1   G/G:121   Median :25.116  
-##  HG00100:  1             Mean   :25.640  
-##  HG00101:  1             3rd Qu.:30.779  
-##  HG00102:  1             Max.   :51.518  
+##      sample     geno          exp
+##  HG00096:  1   A/A:108   Min.   : 6.675
+##  HG00097:  1   A/G:233   1st Qu.:20.004
+##  HG00099:  1   G/G:121   Median :25.116
+##  HG00100:  1             Mean   :25.640
+##  HG00101:  1             3rd Qu.:30.779
+##  HG00102:  1             Max.   :51.518
 ##  (Other):456
 ```
 
@@ -115,8 +115,8 @@ print(table(data$geno))
 ```
 
 ```
-## 
-## A/A A/G G/G 
+##
+## A/A A/G G/G
 ## 108 233 121
 ```
 
@@ -127,7 +127,7 @@ summary(data[data$geno == 'G/G',]$exp)
 ```
 
 ```
-##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
 ##   6.675  16.903  20.074  20.594  24.457  33.956
 ```
 
@@ -136,7 +136,7 @@ summary(data[data$geno == 'A/G',]$exp)
 ```
 
 ```
-##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
 ##   7.075  20.626  25.065  25.397  30.552  48.034
 ```
 
@@ -145,7 +145,7 @@ summary(data[data$geno == 'A/A',]$exp)
 ```
 
 ```
-##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
 ##   11.40   27.02   31.25   31.82   35.92   51.52
 ```
 
@@ -164,7 +164,7 @@ library(ggplot2)
 
 ```
 ## Registered S3 methods overwritten by 'ggplot2':
-##   method         from 
+##   method         from
 ##   [.quosures     rlang
 ##   c.quosures     rlang
 ##   print.quosures rlang
